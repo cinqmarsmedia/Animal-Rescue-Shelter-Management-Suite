@@ -1,0 +1,7 @@
+{
+  "name": "volunDB",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

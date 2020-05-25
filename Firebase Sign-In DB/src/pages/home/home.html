@@ -1,0 +1,183 @@
+<!--BackEnd-->
+
+<div *ngIf="staff" style="height:100%;padding:10px">
+<ion-header>
+  <ion-navbar color="dark">
+    <ion-title>
+   *ANIMAL SHELTER* Database <span style="font-size:1.5vmin">version {{version}}</span>
+<select style="width:20vw;float:right;background:black;border-color:black"[(ngModel)]="stratify" (ngModelChange)="stratifyRez()">
+  <option value="All" selected>All</option>
+  <option value="STAFF1">*STAFF1*</option>
+  <option value="STAFF2">*STAFF2*</option>
+  <option value="STAFF3">*STAFF3*</option>
+  <option value="STAFF4">*STAFF4*</option>
+  <option value="STAFF5">*STAFF5*</option>  
+  <option value="STAFF6">*STAFF6*</option>
+  <option value="STAFF7">*STAFF7*</option>
+  <option value="Other">Other</option>
+</select>
+     
+    </ion-title>
+
+<ion-buttons end>
+      <button ion-button icon-only (click)="downloadData()">
+         <ion-icon name="stats"></ion-icon> Data
+      </button>
+
+
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+<br><br><br> <ion-item style="width:50%;float:left">
+  <ion-label>Start Date</ion-label>
+  <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="start"></ion-datetime>
+</ion-item>
+
+  <ion-item style="width:50%;float:right">
+  <ion-label>End Date</ion-label>
+  <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="end"></ion-datetime>
+</ion-item><br><br><br><br>
+<span [hidden]="!loading">
+Loading Guest Data, Please Stand By
+</span>
+<span [hidden]="loading || activeGuests.length==0">
+Currently Signed In Guests
+</span>
+<span [hidden]="loading || activeGuests.length>0">
+No Guests are Currently Signed In
+</span>
+
+
+ <ion-list *ngFor="let guest of activeGuests">
+<ion-item>
+<b>{{guest.firstName}} {{guest.lastName}}</b> [{{guest.help}}] {{guest.signInTime | date:'short'}} <button ion-button color="danger" (click)="signout(guest)">Sign Out</button>  
+</ion-item>
+  </ion-list>
+
+</div>
+
+
+<!--FrontEnd-->
+<div *ngIf="!staff && donate" style="height:100%;text-align:center">
+ 
+
+  <img style="width:30vmin;position:absolute;right:3vw;top:2vh" src="assets/pc.png">
+
+<div style="width:100%;height:12vh"></div>
+
+<div [hidden]=!hidesignout style="font-size:30px;padding-top:20px">
+  Thank you for Visiting!
+</div>
+<div style="padding:20px;padding-bottom:0px !important;font-size:18px;line-height:4vh">
+   Donations to *ANIMAL SHELTER* will go right to work in aiding our mission: 
+   <div style="width:100%;height:2vh"></div>
+   <a target="_blank" href="https://www.irs.gov/charities-non-profits/charitable-organizations/charitable-contribution-deductions" style="color:#488aff">
+<b>All Donations Tax Deductible!
+<u>EIN *********</u></b> </a>
+<div style="width:100%;height:1vh"></div>
+<button ion-button (click)="donation()" style="width:250px;height:50px;font-size:29px;background-color:#E1533C !important"><b>Donate <ion-icon name="md-paw"></ion-icon></b></button><br><i>Make a life-saving gift today!</i><br><b><a target="_blank" href="<rescue url>">Other Options</a></b>
+</div>
+
+  <div style="text-align:center;padding-top:1vh">
+    
+<button ion-button (click)="applicationButton()" style="width:250px;height:50px;font-size:25px;background-color:#7844A5 !important"><b>Application <ion-icon name="md-document"></ion-icon></b></button>
+</div>
+ <div style="font-size:20px;line-height:20px !important;padding-bottom:2vmin !important" ><i>Fill out adoption paperwork!</i></div>
+  <div *ngIf="!hidesignout" style="text-align:center;padding-top:1vh">
+    
+<button ion-button (click)="signOut()" style="width:250px;height:50px;font-size:27px"><b>Feedback <ion-icon name="md-people"></ion-icon></b></button>
+</div>
+ <div style="font-size:20px;padding-left:5px;padding-right:5px;line-height:20px !important;padding-bottom:2vmin !important"><i><b>Please leave us feedback!</b> It helps tremendously</i></div>
+
+ <br>
+<span style="font-size:1.5vmax">version <b>{{version}}</b></span>
+<!---->
+<div class="backopacity" [ngClass]="{'backopacitynext':!staff && donate}" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:-40"></div> 
+
+<div class="backgd" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:-50"></div> 
+
+
+</div>
+<div *ngIf="!staff && !donate" style="height:100%;padding:18px;padding-top:10px !important;font-size:20px">
+  <div style="text-align:center;margin-bottom:-8px !important">
+  <img style="width:calc(80vmax - 60vw)" src="assets/pc.png">
+  </div>
+  <div style="text-align:center;font-size:16px !important">
+<i>Thank you for visiting!</i> Please <b>Sign-In</b>:
+</div><!--Please answer the following questions to help us match you to your new best friend:-->
+  <div style="padding-top:3vmin">
+    <label for="name"><b>Name:</b> </label>
+    <input [ngClass]="{'okay':firstname}" [(ngModel)]="data.firstName" type="text" style="width:32vw" placeholder="First" (ngModelChange)="namechange(true)">
+
+        <label for="name"></label>
+    <input [ngClass]="{'okay':lastname}" [(ngModel)]="data.lastName" type="text" style="width:32vw" placeholder="Last" (ngModelChange)="namechange(false)">
+  </div>
+
+  <div style="padding-top:3vmin">
+    <label for="name"><b>How did you find us?</b></label>
+    <select [ngClass]="{'okay':dropitdown}" [(ngModel)]="data.source" (ngModelChange)="dropdown()">
+  <!--<option value="" disabled selected>Choose</option>-->
+  <option value="Facebook">Facebook</option>
+  <option value="PetFinder">PetFinder</option>
+  <option value="Yelp">Yelp</option>
+  <option value="WordOfMouth">Word of Mouth</option>
+  <option value="AlumAdopter">Alumni</option>  <option value="OtherRescue">Rescue</option>
+  <option value="Other">Other</option>
+</select>
+  </div>
+
+  <div style="padding-top:3vmin">
+    <label for="name"><b>Who is helping you today?</b></label>
+    <select style="width:25vw" [ngClass]="{'okay':staffdropitdown}" [(ngModel)]="data.help" (ngModelChange)="staffdropdown()">
+  <!--<option value="" disabled selected>Choose</option>-->
+  <option value="Tara">Tara</option>
+  <option value="Sue">Sue</option>
+  <option value="Bianca">Bianca</option>
+  <option value="David">David</option>
+  <option value="Donna">Donna</option>  
+  <option value="Scott">Scott</option>
+  <option value="QuiQui">Qui Qui</option>
+  <option value="Other">Other</option>
+</select>
+  </div>
+
+  <!--
+    Tara
+Sue
+Bianca
+David
+Donna
+Scott
+Qui Qui
+Volunteer Walk Thru-->
+
+
+  <div>
+
+<div style="padding-top:3vmin">
+    <label style="padding-top:3vmin" for="mail"><b>E-Mail:</b></label>
+    <input (ngModelChange)="checkEmail()" [ngClass]="{'okay':validemail}" [(ngModel)]="data.email" type="email" id="mail" name="user_mail" placeholder="name@mail.com" style="width:65vw">
+  </div>
+      <div style="font-size:15px;line-height:14px!important;padding-top:3vmin;padding-left:10px;padding-right:10px"><input type="checkbox" [(ngModel)]="data.newsletter"> <i>
+    Sign up for our fun and heartwarming newsletter that sends about once per month. 
+You can unsubscribe anytime.</i></div>
+  </div>
+  <div>
+<!--
+<div style="padding-top:3vmin;text-align:center">
+
+    <textarea style="border-color:gray;border-radius:2px;border-width:2px;width:100%;height:60px" class="okay" [(ngModel)]="data.msg" id="msg" name="user_message" placeholder="Anything we should know about your visit? (optional)"></textarea></div>
+  </div>
+-->
+<div style="text-align:center;padding-top:2vh">
+<button ion-button (click)="submitForm()" class="" style="width:250px;height:50px;font-size:30px"><b>Sign-In</b></button><br>
+<span style="font-size:1.5vmax">version <b>{{version}}</b></span>
+</div>
+
+<div class="backopacity" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:-40"></div> 
+<div class="backgd" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:-50"></div> 
+</div>
+

@@ -1,0 +1,18 @@
+{
+  "items" : {
+
+     "-LK7wjyK8Y8E4YipYtTX" : {
+      "email" : "example@mail.com",
+      "emername" : "Jane Doe",
+      "emerphone" : "555-555-5555",
+      "minor" : "No",
+      "name" : "Jon Doe",
+      "oridate" : "3/11/16",
+      "phone" : "914-497-1164",
+      "signIns" : [ "2018-08-17T17:37:51.395Z" ],
+      "signOuts" : [ "2018-08-17T17:50:38.946Z" ]
+    }
+
+
+  }
+}

@@ -1,0 +1,250 @@
+<!--///////////HEADER////////////-->
+
+<ion-header>
+  <ion-navbar color="dark">
+    <ion-title>
+   *ANIMAL SHELTER NAME* Volunteer Database <span style="font-size:1.5vmin">version 1.4.5</span>
+
+    </ion-title>
+
+<!---->
+<ion-buttons start>
+  <!--
+      <button ion-button (click)="debug()">
+        <ion-icon name="bug"></ion-icon>  wipeDB
+      </button>
+
+
+     <button ion-button (click)="debugtwo()">
+        <ion-icon name="bug"></ion-icon>  debug
+      </button>
+    -->
+
+
+    </ion-buttons>
+
+
+<ion-buttons end>
+      <button *ngIf="!statsshow && !manualView" ion-button icon-only (click)="stats(true)">
+         <ion-icon name="stats"></ion-icon> Data
+      </button>
+ <button *ngIf="statsshow || manualView" ion-button icon-only (click)="stats(false); manual(false)">
+         <ion-icon name="arrow-back"></ion-icon> Back
+      </button>
+     
+
+    </ion-buttons>
+
+
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content padding [hidden]="!statsshow">
+  <div [hidden]="statsearchDone">
+      <button ion-button style="float:right;color:black;background:rgba(0,0,0,0)" *ngIf="statsshow || manualView" ion-button icon-only (click)="deletevolun()">
+         <ion-icon name="md-trash"></ion-icon>
+      </button>
+  Get Data On: <br><br>
+<select [(ngModel)]="statsVolunteer">
+<option value="" selected>All Volunteers</option>
+    <option *ngFor="let allvolunteerName of allvolunteerNames" value={{allvolunteerName}}>{{allvolunteerName}}</option>
+</select><br> <br>
+
+  <ion-item>
+  <ion-label>Start Date</ion-label>
+  <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="start"></ion-datetime>
+</ion-item>
+
+  <ion-item>
+  <ion-label>End Date</ion-label>
+  <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="end"></ion-datetime>
+</ion-item>
+
+<br><br>
+<button (click)="statSearch()" ion-button>Get Data</button>
+
+
+<button color="light" style="float:right" (click)="followup()" ion-button>
+<span [hidden]="missinginfo">
+Missing Info
+</span>
+<span [hidden]="!missinginfo">
+30 Day Activity
+</span>
+</button>
+
+<button color="light" style="float:right" (click)="breakdownShortcut()" ion-button>
+Breakdown
+</button>
+
+<div [hidden]="missinginfo">
+<br><br><br>
+Volunteer Activity in last 30 days compared to their average (excluding volunteers who haven't come in 3 months or more).
+<br>
+<br>
+
+ <ion-list *ngFor="let unusualVolunteer of unusualVolunteers" >
+<ion-item style="border:3px !important" (click)="moreInfo(unusualVolunteer.name)" [ngClass]="{'neg':unusualVolunteer.diff<0,'pos':unusualVolunteer.diff>0}">
+{{unusualVolunteer.name}} : <b>{{unusualVolunteer.diff}}% </b> <span style="padding-left:2vw">{{unusualVolunteer.month}} hrs</span>
+</ion-item>
+  </ion-list>
+</div>
+
+<div [hidden]="!missinginfo">
+<br><br>
+Volunteers with Corrupted Data:<br><br>
+ <ion-list *ngFor="let item of corrupted" >
+<ion-item style="border:3px !important" (click)="moreInfo(item.name)">
+{{item.name}}
+</ion-item>
+  </ion-list>
+<br><br><br>
+Volunteers with missing information, ordered by most pieces missing
+<br>
+<br>
+
+ <ion-list *ngFor="let missingVolunteer of missingVolunteers" >
+<ion-item style="border:3px !important" (click)="moreInfo(missingVolunteer.name)">
+{{missingVolunteer.name}} : {{missingVolunteer.missing | json}}
+</ion-item>
+  </ion-list>
+</div>
+
+
+
+</div>
+<div [hidden]="!statsearchDone" style="font-size:2vmin">
+
+<span [hidden]="breakdown">
+  Search Results for <b>{{start}}</b> to <b>{{end}}</b> 
+</span>
+<span [hidden]="!breakdown">
+  Breakdown of all volunteer activity for individual:
+</span>
+
+  <br><br>
+
+  Total Hours: <b>{{hours}}</b>
+  <br>
+  Total Sessions: <b>{{sessions}}</b>
+  <br>
+  Average Length: {{avg}} hours
+  <div [hidden]="searchQuery!=='All Volunteers'">
+  Active Volunteers: {{results.length}}
+  </div>
+
+<div [hidden]="statsVolunteer!==''">
+  <br><br>
+ <ion-list *ngFor="let result of results">
+<ion-item style="border:3px !important" (click)="moreInfo(result.name)">
+<b>{{result.name}}</b> <span style="padding-left:3vw"> hrs: <b>{{result.hours}}</b> - sess:<b>{{result.sessions}}</b> - avg:{{result.average}}</span>
+<hr>
+</ion-item>
+
+  </ion-list>
+  </div>
+<div style="font-size:2.5vw" [hidden]="statsVolunteer==''">
+  <br>
+  <b>{{statsVolunteer}}</b>
+  <br>
+<button (click)="moreInfo(statsVolunteer)" ion-button>Info Card</button>
+<br><br>
+<div style="float:left;width:48%">
+  Sign Ins:<br>
+ <ion-list *ngFor="let time of individualsignins; let i = index" (click)="delsignin(i)">
+<ion-item style="border:3px !important">
+{{time | date:'medium'}}
+<hr>
+</ion-item>
+  </ion-list>
+</div>
+
+<div style="width:48%;float:right">
+  Sign Outs:<br>
+ <ion-list *ngFor="let time of individualsignouts; let i = index" (click)="delsignout(i)">
+<ion-item style="border:3px !important">
+{{time | date:'medium'}}
+<hr>
+</ion-item>
+  </ion-list>
+</div>
+
+
+
+
+  </div>
+
+
+
+
+
+</div>
+</ion-content>
+
+<ion-content padding [hidden]="!manualView">
+
+  <select [(ngModel)]="manVolunteer">
+<option value="" disabled selected>Choose Volunteer to add Time For</option>
+    <option *ngFor="let volunteerName of volunteerNames" value={{volunteerName}}>{{volunteerName}}</option>
+  </select>
+
+<br> <br>
+
+  <ion-item>
+  <ion-label>Start of Session</ion-label>
+  <ion-datetime displayFormat="MMM DD, YYYY h:mm A" (ngModelChange)="startSession($event)" [(ngModel)]="manstartdate"></ion-datetime>
+</ion-item>
+
+  <ion-item>
+  <ion-label>End of Session</ion-label>
+  <ion-datetime displayFormat="MMM DD, YYYY h:mm A" [(ngModel)]="manenddate"></ion-datetime>
+
+</ion-item>
+
+<br><br>
+<button (click)="addSession()" ion-button>Add Session</button>
+
+
+
+</ion-content>
+
+<ion-content padding [hidden]="statsshow || manualView">
+
+<ion-spinner [hidden]="!loading" name="bubbles" style="position:absolute;bottom:50px;left:50px"></ion-spinner>
+
+
+<select [(ngModel)]="selVolunteer">
+<option value="" disabled selected>Choose Volunteer to Sign In</option>
+    <option *ngFor="let volunteerName of volunteerNames" value={{volunteerName}}>{{volunteerName}}</option>
+  </select>
+
+  <button (click)="signin()" ion-button>Sign In</button>
+
+<button ion-button color="light" style="float:right"ion-button (click)="manual(true)">Manual Entry</button>
+<button ion-button color="light" style="float:right"ion-button (click)="register()">Register</button>
+<br><br>
+
+<span [hidden]="!loading">
+Loading Volunteer Data, Please Stand By
+</span>
+<span [hidden]="loading || activeVolunteers.length==0">
+Currently Signed In Volunteers:
+<hr>
+</span>
+<span [hidden]="loading || activeVolunteers.length>0">
+No Volunteers are Currently Signed In
+</span>
+
+
+ <ion-list *ngFor="let activeVolunteer of activeVolunteers">
+<ion-item>
+{{activeVolunteer.lastSignIn.getTime() | date:'shortTime'}} <b>{{activeVolunteer.name}}</b>  <button ion-button color="danger" (click)="signout(activeVolunteer.name)">Sign Out</button>  <hr>
+</ion-item>
+  </ion-list>
+	
+
+
+</ion-content>

@@ -1,0 +1,69 @@
+page-home {
+/*
+	@import url('https://fonts.googleapis.com/css?family=Reenie+Beanie&display=swap');
+	font-family: 'Reenie Beanie', cursive;
+*/
+
+.alert-md{
+	max-height:60% !important;
+}
+
+label{
+	font-size:18px !important;
+}
+.alert-radio-group{
+	max-height:60% !important;
+}
+
+ion-toggle{
+	background-color:green;
+}
+input{
+	//border-radius: 5px;
+    border-color: #E1533C;
+    border-width:2px;
+    border-radius:5px;
+    border-style:solid !important;
+}
+
+select{
+	border-radius:5px;
+	border-color:#E1533C;
+	border-width:2px;
+	width:37vw;
+}
+
+.okay{
+	border-color: #488aff !important;
+}
+
+
+.backgd{
+  background: linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,0),rgba(255,255,255,.4)), url("../assets/bck.jpg") !important;
+  background-repeat: no-repeat;
+  background-size: cover !important;
+  background-position: center !important; 
+}
+
+.backopacitynext{
+	 background: rgba(255,255,255,.75) !important;
+}
+
+.backopacity{
+	 background: rgba(255,255,255,.9);
+}
+
+select option:disabled {
+	color: #808080;
+}
+
+.neg{
+	color:red;
+}
+.pos{
+	color:green;
+}
+.list-md > .item-block:last-child .item-inner {
+	border-bottom:3px !important;
+}
+}

@@ -1,0 +1,197 @@
+.rgtkPetTitleName {
+    margin-top: 10px;
+
+   }
+
+
+tbody{
+		vertical-align:baseline !important;
+	}
+
+	.rgtkSearchNextPageLink {
+
+    padding-right: 3vw;
+	}
+
+.rgtkSearchPrevPageLink{
+
+    padding-left: 2vw;
+}
+
+.rgtkSearchResultsTable{
+	width:95vw !important;
+}
+.rgtkSearchPetPic{background-size:cover !important;border-radius:3% !important;background-position:center !important}
+
+
+
+
+.rgtkSearchFoundSummary{
+	color:#E1533C !important;
+}
+.rgtkSearchPageLinksTop{
+	font-size:3vmin !important;
+	font-weight:bold !important;
+	padding-top:2vmin !important;
+	padding-bottom:2vmin !important;
+}
+
+.rgtkSearchPageLinksBottom{
+	font-size:2.5vmin !important;
+	font-weight:bold !important;
+	padding-top:2vh !important;
+	padding-bottom:5vh !important;
+}
+
+
+.rgtkSearchPetPic{
+	width:30vw !important;
+	height:37vw !important;
+}
+.rgtk-WRc3BAjx{
+	line-height:2vmin !important}
+
+#rgtkSearchPetInfoAnimalName{
+	padding-top:1vmin !important;
+	padding-bottom:.8vmin;
+	font-size:3vmin;
+	line-height:3vmin !important;
+	font-weight:900;
+	color:#E1533C !important;
+	text-decoration: underline !important;
+
+}
+
+#rgtkPetPicturePrimary_0{
+	border-style:solid !important;
+	border-color:#E1533C !important;
+	border-width:3px !important;
+	padding-bottom:0px !important;
+}
+
+
+
+.rgtkPetFieldDescription {
+	text-align:left !important;
+	padding-top:10px !important;
+	padding-bottom:0px !important;
+	line-height:150% !important;
+}
+
+.rgtkPetMoreabout{
+	text-align:left !important;
+	padding-left:5vw;
+}
+
+.rgtkPetBrowsePetPic{
+	border:none !important;	
+}
+
+.rgtkPetInfoBox{
+	background-color:#F5F5F5 !important;
+}
+#rgtkPetBrowsePetPicNext_0{
+	float:right;
+}
+
+.rgtkMainContainer{
+	line-height:150% !important;
+}
+
+.rgtkPetBrowseBoxArrow {
+	border:none !important;
+	color:#E1533C !important;
+	font-size:6vmin;
+}
+
+.rgtkPetReturntoSearch{
+	font-weight: bold !important;
+}
+
+.rgtkPetBrowsePetPicMissingPlaceholder{
+	color:#E1533C !important;
+}
+
+.rgtkPetBrowseBox{
+	margin-top:-50px !important;
+}
+
+#rgtkSearchClear_0{
+	font-size:2.5vmin !important;
+
+	height:3vmin !important;
+}
+#rgtkSearchSubmit_0{
+	font-size:2.5vmin !important;
+		height:3vmin !important;
+}
+
+#rgtkSearchString_0{
+	border-radius:10px;
+	border-color:#E1533C !important;
+	border-style:solid;
+	height:3vmin;
+width:25vw;
+font-size:2.5vmin
+}
+
+td{
+		cursor: pointer;
+			padding-top:0px !important;
+	margin-top:0px !important;
+}
+
+
+
+#rgtkSearchPetInfoAnimalBreed{
+	font-size:2vw;
+	padding-bottom:1.5vmax;
+	line-height:2vmin;
+
+}
+
+.rgtkPetContainer{
+	padding:0px !important;
+}
+
+.rgtkPetExtraMediaPicture{
+width:20vw;
+max-width:120px !important;
+height:auto;
+}
+
+.pp_pic_holder{
+position:absolute !important;
+top:25px !important;
+}
+
+.rgtkPetPicturePrimary{
+	padding:5px !important;
+max-width:90vw !important;
+	height:auto !important;
+	border:double !important;
+}
+
+#rgtkPetPicturePrimary_0{
+	max-width:90vw !important;
+	height:auto !important;
+}
+.rgtkPetPicturePrimary img{
+	max-width:90vw !important;
+	height:auto !important;
+}
+.rgtkPetPicturePrimaryTable{
+width:100% !important;
+}
+
+.rgtkPetReturntoSearchTop_0{
+	width:50px !important;
+}
+
+.rgtkPetBrowseBoxNext{
+	float:right !important
+}
+
+.rgtkPetPicturePrimaryTable{
+	margin-top:0px !important
+}
